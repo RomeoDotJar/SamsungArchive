@@ -84,9 +84,13 @@ public class ChessBoard extends Board {
             System.out.println("Ffrom = " + tempFrom);
             switch (tempFrom.getClass().getSimpleName()) {
                 case "Bishop":
-                case "King":
                 case "Queen":
                     return tempFrom.canMove(to);
+                case "King":
+                    if (tempFrom.canMove(to))
+                        return tempTo == null || tempFrom.isColorIsWhite() != tempTo.isColorIsWhite();
+                    else
+                        return false;
                 case "Rook":
                     if (tempTo != null && tempFrom.isColorIsWhite() == tempTo.isColorIsWhite())
                         return false;
