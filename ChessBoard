@@ -88,6 +88,9 @@ public class ChessBoard extends Board {
                 case "Queen":
                     return tempFrom.canMove(to);
                 case "Rook":
+                    if (tempTo != null && tempFrom.isColorIsWhite() == tempTo.isColorIsWhite())
+                        return false;
+
                     if (tempFrom.canMove(to)) {
                         Coordinate f = new Coordinate(from.getX(), from.getY());
                         Coordinate t = new Coordinate(to.getX(), to.getY());
@@ -95,22 +98,22 @@ public class ChessBoard extends Board {
 
                         int xx = f.getX()-t.getX();
                         if (xx > 0) {
-                            for (int i = t.getX(); i < f.getX(); i++) {
+                            for (int i = t.getX()+1; i < f.getX()-1; i++) {
                                 if (field[f.getY()][i] != null) return false;
                             }
                         } else if (xx < 0) {
-                            for (int i = t.getX(); i > f.getX(); i--) {
+                            for (int i = t.getX()-1; i > f.getX()+1; i--) {
                                 if (field[f.getY()][i] != null) return false;
                             }
                         } else {
                             int yy = f.getY()-t.getY();
 
                             if (yy > 0) {
-                                for (int i = t.getY(); i < f.getY(); i++) {
+                                for (int i = t.getY()+1; i < f.getY()-1; i++) {
                                     if (field[i][f.getX()] != null) return false;
                                 }
                             } else if (yy < 0) {
-                                for (int i = t.getY(); i > f.getY(); i--) {
+                                for (int i = t.getY()-1; i > f.getY()+1; i--) {
                                     if (field[i][f.getX()] != null) return false;
                                 }
                             } else return false;
